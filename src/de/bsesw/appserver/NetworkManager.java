@@ -45,7 +45,7 @@ public class NetworkManager {
 									String s = null;
 									while((s = reader.readLine()) != null)
 									{
-										String [] parts = s.split("//");
+										String [] parts = AppServer.encryption.decrypt(s).split("//");
 										int method = Integer.parseInt(parts[1]);
 										String str = null;
 										for(RequestHandler handler : handerList)
@@ -58,7 +58,7 @@ public class NetworkManager {
 										{
 											packet="1//"+str;
 										}
-										writer.write(packet+"\n");
+										writer.write(AppServer.encryption.encrypt(packet)+"\n");
 										writer.flush();
 									}
 									writer.close();

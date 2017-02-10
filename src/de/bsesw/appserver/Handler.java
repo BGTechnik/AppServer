@@ -133,8 +133,15 @@ public class Handler implements RequestHandler {
 			if(NetworkManager.sessions.containsKey(sessionid))
 			{
 				UUID p = NetworkManager.sessions.get(sessionid);
-				int id = Integer.parseInt(data.split("|")[0]);
-				GameData d = new GameData(data.split("|")[1]);
+				int id = Integer.parseInt(data.split(";")[0]);
+				String ds = "";
+				String [] spl = data.split(";");
+				for(int i=1;i<spl.length;i++)
+				{
+					if(ds.length()>0)ds+=";";
+					ds+=spl[i];
+				}
+				GameData d = new GameData(ds);
 				int c = 1;
 				for(Tuple<Integer,Integer> r : d.getResults())
 				{
