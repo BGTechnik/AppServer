@@ -78,6 +78,20 @@ public class Handler implements RequestHandler {
 			{
 				UUID p = NetworkManager.sessions.get(sessionid);
 				UUID a = UUID.fromString(data);
+				try {
+					ResultSet rs = AppServer.mysql.query("SELECT score5 FROM gamedata WHERE p1='"+p.toString()+"' AND p2='"+a.toString()+"' AND NOT score5='-1;-1';");
+					while(rs.next())
+					{
+						if(rs.getString("score5").split(":")[1].equals("-1"))return "running";
+					}
+				}catch(Exception ex){ex.printStackTrace();}
+				try {
+					ResultSet rs = AppServer.mysql.query("SELECT score5 FROM gamedata WHERE p1='"+a.toString()+"' AND p2='"+p.toString()+"' AND NOT score5='-1;-1';");
+					while(rs.next())
+					{
+						if(rs.getString("score5").split(":")[1].equals("-1"))return "running";
+					}
+				}catch(Exception ex){ex.printStackTrace();}
 				AppServer.mysql.update("INSERT INTO gamedata (p1,p2,games) VALUES ('"+p.toString()+"','"+a.toString()+"','"+randomGameList()+"');");
 				return "null";
 			}
