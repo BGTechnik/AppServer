@@ -23,7 +23,7 @@ public class AppServer
 	public static int randInt(int min,int max)
 	{
 		Random r = new Random();
-		return r.nextInt(max-min)+min;
+		return r.nextInt((max+1)-min)+min;
 	}
 	
 }

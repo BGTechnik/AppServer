@@ -3,6 +3,7 @@ package de.bsesw.appserver;
 import java.lang.reflect.Array;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.UUID;
 
 import de.bsesw.app.data.GameData;
@@ -174,7 +175,7 @@ public class Handler implements RequestHandler {
 		for(int i=0;i<5;i++)
 		{
 			if(l.length()>0)l+=",";
-			l+=GameType.values()[AppServer.randInt(1, GameType.values().length)-1].toString();
+			l+=GameType.values()[AppServer.randInt(0, GameType.values().length-1)].toString();
 		}
 		return l;
 	}
